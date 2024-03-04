@@ -58,7 +58,7 @@ template(name="hello-go-json" type="list" option.jsonf="on") {
      }
 ```
 
-... end up logged as this:
+... ends up logged as this:
 ```
 2024-03-04T16:43:20.288697+01:00 rsyslog-client.domain.local  {"TIME":"2024-03-04T16:43:20.227336+01:00", "HOST":"rpi0", "SEVERITY":6, "FACILITY":3, "TAG":"hello-go[340]:", "CUSTOM_APP_TAG": "APP_HELLOGO", "SRC":"hello-go", "MSG":" Canvas Reads!"}
 ```
