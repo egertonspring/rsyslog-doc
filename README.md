@@ -17,6 +17,28 @@ if $programname == 'hello-go' then {
 )
 }
 ```
+You can also forward the log messages to multiple destinations just by defining multiple forwarding rules:
+
+```
+if $programname == 'hello-go' then {
+   action(type="omfwd"
+       protocol="udp"
+       template="hello-go-flat"
+       target="rsyslog-target1.domain.local"
+       port="514"
+       queue.filename="rsyslog-target.domain.local-queue"
+       queue.type="linkedList"
+)
+   action(type="omfwd"
+       protocol="udp"
+       template="hello-go-flat"
+       target="rsyslog-target2.domain.local"
+       port="514"
+       queue.filename="rsyslog-target.domain.local-queue"
+       queue.type="linkedList"
+)
+}
+```
 
 ## Templating
 I have written a little app in go which will write log messages every 3 seconds. This is to test all this logging.
