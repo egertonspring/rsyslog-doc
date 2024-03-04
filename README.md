@@ -3,7 +3,7 @@ This is a documentation of rsyslog rule and templates and what they will actuall
 I will only document the "new" advanced format here because the only legacy that counts is "Hogwarts Legacy"
 
 ## Forwarding
-The following rule will forward logs which are tagged "hello-go" to the server which is defined in the target-section:
+The following rule will forward logs which are tagged "hello-go" to the server which is defined in the target-section. If you have multiple templates defined within the rsyslog.conf.d-File make sure you select the right one in your forwarding rule in the template-section:
 
 ```
 if $programname == 'hello-go' then {
