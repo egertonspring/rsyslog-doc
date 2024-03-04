@@ -1,10 +1,8 @@
 # Rsyslog rules and templates
- This is a documentation of rsyslog rule and templates and what they will actually do.
-
-## Rules
+This is a documentation of rsyslog rule and templates and what they will actually do.
 I will only document the "new" advanced format here because the only legacy that counts is "Hogwarts Legacy"
 
-### Forwarding
+## Forwarding
 The following rule will forward logs which are tagged "hello-go" to the server which is defined in the target-section:
 
 ```
@@ -20,7 +18,7 @@ if $programname == 'hello-go' then {
 }
 ```
 
-### Templating
+## Templating
 I have written a little app in go which will write log messages every 3 seconds. This is to test all this logging.
 
 
@@ -44,7 +42,7 @@ template(name="hello-go-flat" type="list") {
 2024-03-04T16:40:02.226078+01:00 rsyslog-client hello-go[340]: APP_HELLOGO Plate Encourages!
 ```
 
-# Next
+### Next
 
 This template ...
 ```
@@ -65,7 +63,7 @@ template(name="hello-go-json" type="list" option.jsonf="on") {
 2024-03-04T16:43:20.288697+01:00 rsyslog-client.domain.local  {"TIME":"2024-03-04T16:43:20.227336+01:00", "HOST":"rpi0", "SEVERITY":6, "FACILITY":3, "TAG":"hello-go[340]:", "CUSTOM_APP_TAG": "APP_HELLOGO", "SRC":"hello-go", "MSG":" Canvas Reads!"}
 ```
 
-# Next
+### Next
 
 The following template...
 
@@ -90,7 +88,7 @@ template(name="hello-go-long-json" type="list" option.jsonf="on") {
 2024-03-04T16:45:41.283912+01:00 rsyslog-client.domain.local  {"TIME":"2024-03-04T16:45:41.227274+01:00", "HOST":"rpi0", "SEVERITY_NUM":"6", "SEVERITY_TXT":"info", "FACILITY_NUM":"3", "FACILITY_TXT":"daemon", "TAG":"hello-go[340]:", "CUSTOM_APP_TAG": "APP_HELLOGO", "SRC":"hello-go", "MSG":" Canvas Forgets!"}
 ```
 
-# Next
+### Next
 
 This one ...
 ```
@@ -118,7 +116,7 @@ will be logged in this way:
 2024-03-04T16:47:47.228103+01:00 rsyslog-client hello-go[340]: 6 3 APP_HELLOGO Cat Drives!
 ```
 
-# Next
+### Next
 
 This
 
