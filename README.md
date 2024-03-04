@@ -2,7 +2,7 @@
  This is a documentation of rsyslog rule and templates and what they will actually do.
 
 ## Rules
-I will only document the "new" advanced format here because the only legecy that counts is "Hogwarts Legacy"
+I will only document the "new" advanced format here because the only legacy that counts is "Hogwarts Legacy"
 
 ### Forwarding
 The following rule will forward logs which are tagged "hello-go" to the server which is defined in the target-section:
@@ -44,7 +44,7 @@ template(name="hello-go-flat" type="list") {
 2024-03-04T16:40:02.226078+01:00 rsyslog-client hello-go[340]: APP_HELLOGO Plate Encourages!
 ```
 
-# Next...
+# Next
 
 This template ...
 ```
