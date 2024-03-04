@@ -9,17 +9,12 @@ import (
 )
 
 func main() {
-	// Öffne die Log-Datei im Append-Modus
 	f, err := os.OpenFile("logfile.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer f.Close()
 
-	// Setze den Logger auf die Log-Datei
-	//logger := log.New(os.Stdout, "hello-go", log.LstdFlags)
-
-	// Starte die Schleife, die alle 3 Sekunden läuft
 	ticker := time.NewTicker(3 * time.Second)
 	defer ticker.Stop()
 
@@ -39,18 +34,12 @@ func main() {
 	for {
 		select {
 		case <-ticker.C:
-			// Wähle zufällige Grußformel und Namen
 			randomGreeting := randomTexts[rand.Intn(len(randomTexts))]
 			randomName := randomNames[rand.Intn(len(randomNames))]
 
-			// Erstelle den zufälligen Gruß
 			randomGreetingText := fmt.Sprintf("%s %s!", randomGreeting, randomName)
 
-			// Gib den Text auf stdout aus
 			fmt.Println(randomGreetingText)
-
-			// Logge den Text
-			//logger.Println(randomGreetingText)
 		}
 	}
 }
