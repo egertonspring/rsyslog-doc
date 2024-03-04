@@ -12,7 +12,7 @@ if $programname == 'hello-go' then {
        template="hello-go-flat"
        target="rsyslog-target.domain.local"
        port="514"
-       queue.filename="rpi5-queue"
+       queue.filename="rsyslog-target.domain.local-queue"
        queue.type="linkedList"
 )
 }
