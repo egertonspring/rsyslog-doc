@@ -3,6 +3,7 @@ This is a documentation of rsyslog rule and templates and what they will actuall
 I will only document the "new" advanced format here because the only legacy that counts is "Hogwarts Legacy".
 
 ## Forwarding
+### Forwarding Example 1
 The following rule will forward logs which are tagged "hello-go" to the server which is defined in the target-section. If you have multiple templates defined within the rsyslog.conf.d-File make sure you select the right one in your forwarding rule in the template-section:
 ```
 if $programname == 'hello-go' then {
@@ -16,6 +17,7 @@ if $programname == 'hello-go' then {
 )
 }
 ```
+### Forwarding Example 2
 You can also forward the log messages to multiple destinations just by defining multiple forwarding rules:
 ```
 if $programname == 'hello-go' then {
@@ -37,10 +39,26 @@ if $programname == 'hello-go' then {
 )
 }
 ```
+### Forwarding Example 3
+The following example forwards every log message from the program 'hello-go' via TCP to rsyslog-target.domain.local on port 11611.
+```
+if $programname == 'hello-go' then {
+   action(type="omfwd"
+       protocol="tcp"
+       template="hello-go-flat"
+       target="rsyslog-target.domain.local"
+       port="11611"
+       queue.filename="rsyslog-target.domain.local-queue"
+       queue.type="linkedList"
+)
+}
+```
+
+
 ## Templating
 I have written a little app in go which runs as sstemd services and will write log messages every 3 seconds. This is to test all this logging.
 
-### Example 1
+### Templating Example 1
 The following template ...
 ```
 template(name="hello-go-flat" type="list") {
@@ -60,7 +78,7 @@ template(name="hello-go-flat" type="list") {
 ```
 2024-03-04T16:40:02.226078+01:00 rsyslog-client hello-go[340]: APP_HELLOGO Plate Encourages!
 ```
-### Example 2
+### Templating Example 2
 This template ...
 ```
 template(name="hello-go-json" type="list" option.jsonf="on") {
@@ -78,7 +96,7 @@ template(name="hello-go-json" type="list" option.jsonf="on") {
 ```
 2024-03-04T16:43:20.288697+01:00 rsyslog-client.domain.local  {"TIME":"2024-03-04T16:43:20.227336+01:00", "HOST":"rpi0", "SEVERITY":6, "FACILITY":3, "TAG":"hello-go[340]:", "CUSTOM_APP_TAG": "APP_HELLOGO", "SRC":"hello-go", "MSG":" Canvas Reads!"}
 ```
-### Example 3
+### Templating Example 3
 The following template...
 ```
 template(name="hello-go-long-json" type="list" option.jsonf="on") {
@@ -99,7 +117,7 @@ template(name="hello-go-long-json" type="list" option.jsonf="on") {
 ```
 2024-03-04T16:45:41.283912+01:00 rsyslog-client.domain.local  {"TIME":"2024-03-04T16:45:41.227274+01:00", "HOST":"rpi0", "SEVERITY_NUM":"6", "SEVERITY_TXT":"info", "FACILITY_NUM":"3", "FACILITY_TXT":"daemon", "TAG":"hello-go[340]:", "CUSTOM_APP_TAG": "APP_HELLOGO", "SRC":"hello-go", "MSG":" Canvas Forgets!"}
 ```
-### Example 4
+### Templating Example 4
 This one ...
 ```
 template(name="hello-go-experimental-1" type="list") {
@@ -123,7 +141,7 @@ will be logged in this way:
 ```
 2024-03-04T16:47:47.228103+01:00 rsyslog-client hello-go[340]: 6 3 APP_HELLOGO Cat Drives!
 ```
-### Example 5
+### Templating Example 5
 This
 ```
 template(name="hello-go-experimental-2" type="list") {
@@ -151,7 +169,7 @@ will be written in such a way:
 ```
 2024-03-04T16:49:35.227293+01:00 rsyslogclient hello-go[340]: 6 info 3 daemon APP_HELLOGO Knife Enjoys!
 ```
-### Example 6
+### Templating Example 6
 This one
 ```
 template(name="hello-go-experimental-3" type="list") {
