@@ -4,7 +4,6 @@ I will only document the "new" advanced format here because the only legacy that
 
 ## Forwarding
 The following rule will forward logs which are tagged "hello-go" to the server which is defined in the target-section. If you have multiple templates defined within the rsyslog.conf.d-File make sure you select the right one in your forwarding rule in the template-section:
-
 ```
 if $programname == 'hello-go' then {
    action(type="omfwd"
@@ -18,7 +17,6 @@ if $programname == 'hello-go' then {
 }
 ```
 You can also forward the log messages to multiple destinations just by defining multiple forwarding rules:
-
 ```
 if $programname == 'hello-go' then {
    action(type="omfwd"
@@ -39,12 +37,10 @@ if $programname == 'hello-go' then {
 )
 }
 ```
-
 ## Templating
 I have written a little app in go which runs as sstemd services and will write log messages every 3 seconds. This is to test all this logging.
 
-### 1
-
+### Example 1
 The following template ...
 ```
 template(name="hello-go-flat" type="list") {
@@ -64,9 +60,7 @@ template(name="hello-go-flat" type="list") {
 ```
 2024-03-04T16:40:02.226078+01:00 rsyslog-client hello-go[340]: APP_HELLOGO Plate Encourages!
 ```
-
-### 2
-
+### Example 2
 This template ...
 ```
 template(name="hello-go-json" type="list" option.jsonf="on") {
@@ -84,11 +78,8 @@ template(name="hello-go-json" type="list" option.jsonf="on") {
 ```
 2024-03-04T16:43:20.288697+01:00 rsyslog-client.domain.local  {"TIME":"2024-03-04T16:43:20.227336+01:00", "HOST":"rpi0", "SEVERITY":6, "FACILITY":3, "TAG":"hello-go[340]:", "CUSTOM_APP_TAG": "APP_HELLOGO", "SRC":"hello-go", "MSG":" Canvas Reads!"}
 ```
-
-### 3
-
+### Example 3
 The following template...
-
 ```
 template(name="hello-go-long-json" type="list" option.jsonf="on") {
      property(outname="TIME" name="timereported" dateFormat="rfc3339" format="jsonf")
@@ -103,15 +94,12 @@ template(name="hello-go-long-json" type="list" option.jsonf="on") {
      property(outname="MSG" name="msg" format="jsonf")
      }
 ```
-
 ... is logged as...
 
 ```
 2024-03-04T16:45:41.283912+01:00 rsyslog-client.domain.local  {"TIME":"2024-03-04T16:45:41.227274+01:00", "HOST":"rpi0", "SEVERITY_NUM":"6", "SEVERITY_TXT":"info", "FACILITY_NUM":"3", "FACILITY_TXT":"daemon", "TAG":"hello-go[340]:", "CUSTOM_APP_TAG": "APP_HELLOGO", "SRC":"hello-go", "MSG":" Canvas Forgets!"}
 ```
-
-### 4
-
+### Example 4
 This one ...
 ```
 template(name="hello-go-experimental-1" type="list") {
@@ -131,17 +119,12 @@ template(name="hello-go-experimental-1" type="list") {
     constant(value="\n")
     }
 ```
-
 will be logged in this way:
-
 ```
 2024-03-04T16:47:47.228103+01:00 rsyslog-client hello-go[340]: 6 3 APP_HELLOGO Cat Drives!
 ```
-
-### 5
-
+### Example 5
 This
-
 ```
 template(name="hello-go-experimental-2" type="list") {
     property(name="timestamp" dateFormat="rfc3339")
@@ -165,14 +148,11 @@ template(name="hello-go-experimental-2" type="list") {
     }
 ```
 will be written in such a way:
-
 ```
 2024-03-04T16:49:35.227293+01:00 rsyslogclient hello-go[340]: 6 info 3 daemon APP_HELLOGO Knife Enjoys!
 ```
-
-### 6
+### Example 6
 This one
-
 ```
 template(name="hello-go-experimental-3" type="list") {
     property(name="timestamp" dateFormat="rfc3339")
@@ -195,4 +175,3 @@ results in this log line:
 ```
 2024-03-05T13:48:25.123630+01:00 rsyslogclient hello-go[341]: info:daemon APP_HELLOGO Microphone Builds!
 ```
-
