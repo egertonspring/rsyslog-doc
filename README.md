@@ -169,3 +169,30 @@ will be written in such a way:
 ```
 2024-03-04T16:49:35.227293+01:00 rsyslogclient hello-go[340]: 6 info 3 daemon APP_HELLOGO Knife Enjoys!
 ```
+
+### 6
+This one
+
+```
+template(name="hello-go-experimental-3" type="list") {
+    property(name="timestamp" dateFormat="rfc3339")
+    constant(value=" ")
+    property(name="hostname")
+    constant(value=" ")
+    property(name="syslogtag")
+    constant(value=" ")
+    property(name="syslogseverity-text")
+    constant(value=":")
+    property(name="syslogfacility-text")
+    constant(value=" ")
+    constant(value="APP_HELLOGO")
+    property(name="msg" spifno1stsp="on" )
+    property(name="msg" droplastlf="on" )
+    constant(value="\n")
+    }
+```
+results in this log line:
+```
+2024-03-05T13:48:25.123630+01:00 rsyslogclient hello-go[341]: info:daemon APP_HELLOGO Microphone Builds!
+```
+
