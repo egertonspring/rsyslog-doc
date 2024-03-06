@@ -53,7 +53,20 @@ if $programname == 'hello-go' then {
 )
 }
 ```
-
+### Forwarding Example 4
+If you want to forward logs to a specific file, the following rule could help you:
+```
+if $programname == 'kubelet' then {
+   action(type="omfile"
+       file="/var/log/kubernetes/kubelet.log"
+       template="kubelet-json"
+)
+}
+```
+The Errors will be logged like this:
+```
+{"@TIMESTAMP":"2024-03-06T15:10:07.743775+01:00", "HOST":"rsyslogclient", "SEVERITY":6, "FACILITY":3, "TAG":"kubelet[10332]:", "APP": "APP_KUBELET", "SRC":"kubelet", "MSG":" I0306 15:10:07.743564   10332 status_manager.go:809] \"Failed to get status for pod\" podUID=d8bda651380477fe3a0683c878987dc9 pod=\"kube-system\/kube-scheduler-rsyslogclient\" err=\"Get \\\"https:\/\/192.168.1.199:6443\/api\/v1\/namespaces\/kube-system\/pods\/kube-scheduler-rsyslogclient\\\": dial tcp 192.168.1.199:6443: connect: connection refused\""}
+```
 
 ## Templating
 I have written a little app in go which runs as sstemd services and will write log messages every 3 seconds. This is to test all this logging.
