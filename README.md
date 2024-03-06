@@ -63,7 +63,7 @@ if $programname == 'kubelet' then {
 )
 }
 ```
-The Errors will be logged like this:
+The events of kublet will be logged like this (I have used the template from example 2):
 ```
 {"@TIMESTAMP":"2024-03-06T15:10:07.743775+01:00", "HOST":"rsyslogclient", "SEVERITY":6, "FACILITY":3, "TAG":"kubelet[10332]:", "APP": "APP_KUBELET", "SRC":"kubelet", "MSG":" I0306 15:10:07.743564   10332 status_manager.go:809] \"Failed to get status for pod\" podUID=d8bda651380477fe3a0683c878987dc9 pod=\"kube-system\/kube-scheduler-rsyslogclient\" err=\"Get \\\"https:\/\/192.168.1.199:6443\/api\/v1\/namespaces\/kube-system\/pods\/kube-scheduler-rsyslogclient\\\": dial tcp 192.168.1.199:6443: connect: connection refused\""}
 ```
