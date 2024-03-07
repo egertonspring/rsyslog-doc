@@ -70,7 +70,19 @@ The events of kublet will be logged like this (I have used the template from exa
 
 ## Receiving
 ### Receiving Example 1
-If you have configured your Rsyslog sending machines to your needs, you should also configure the reveiving machine(s) so that the log is separated by host:
+You need to configure your /etc/rsyslog.conf to be able to receive logs from other machines:
+
+```
+nano /etc/rsyslog.conf
+```
+uncomment the receiving method (UDP on Port 514 in this case):
+```
+module(load="imudp")
+input(type="imudp" port="514")
+
+```
+### Receiving Example 2
+You should also configure rsyslog to write a  separate log per host:
 
 ```
 nano /etc/rsyslog.d/remote-logging-machines.conf
@@ -81,6 +93,7 @@ if ($hostname == 'rsyslog-client-1') then {
     action(type="omfile" file="/var/log/remote/rsyslog-client-1.domain.local")
     stop
 }
+
 
 if ($hostname == 'rsyslog-client-1.domain.local') then {
     action(type="omfile" file="/var/log/remote/rsyslog-client-1.domain.local")
