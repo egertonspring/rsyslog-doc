@@ -68,6 +68,37 @@ The events of kublet will be logged like this (I have used the template from exa
 {"@TIMESTAMP":"2024-03-06T15:10:07.743775+01:00", "HOST":"rsyslogclient", "SEVERITY":6, "FACILITY":3, "TAG":"kubelet[10332]:", "APP": "APP_KUBELET", "SRC":"kubelet", "MSG":" I0306 15:10:07.743564   10332 status_manager.go:809] \"Failed to get status for pod\" podUID=d8bda651380477fe3a0683c878987dc9 pod=\"kube-system\/kube-scheduler-rsyslogclient\" err=\"Get \\\"https:\/\/192.168.1.199:6443\/api\/v1\/namespaces\/kube-system\/pods\/kube-scheduler-rsyslogclient\\\": dial tcp 192.168.1.199:6443: connect: connection refused\""}
 ```
 
+## Receiving
+### Receiving Example 1
+If you have configured your Rsyslog sending machines to your needs, you should also configure the reveiving machine(s) so that the log is separated by host:
+
+```
+nano /etc/rsyslog.d/remote-logging-machines.conf
+```
+
+```
+if ($hostname == 'rsyslog-client-1') then {
+    action(type="omfile" file="/var/log/remote/rsyslog-client-1.domain.local")
+    stop
+}
+
+if ($hostname == 'rsyslog-client-1.domain.local') then {
+    action(type="omfile" file="/var/log/remote/rsyslog-client-1.domain.local")
+    stop
+}
+
+if ($hostname == 'rsyslog-client-2') then {
+    action(type="omfile" file="/var/log/remote/rsyslog-client-2.domain.local")
+    stop
+}
+
+if ($hostname == 'rsyslog-client-2.domain.local') then {
+    action(type="omfile" file="/var/log/remote/rsyslog-client-2.domain.local")
+    stop
+}
+
+```
+
 ## Templating
 I have written a little app in go which runs as sstemd services and will write log messages every 3 seconds. This is to test all this logging.
 
